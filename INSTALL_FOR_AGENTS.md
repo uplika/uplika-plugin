@@ -2,7 +2,7 @@
 
 You are an AI coding agent. Decide which agent you are running in, then follow only that section. Run the commands yourself; ask the person only when a step needs their browser.
 
-The Uplika MCP server is `https://api.uplika.com/mcp`. It uses OAuth with dynamic client registration, so there is no key to paste. The browser approval screen opens the first time a tool is called (Claude Code, Codex) or when you run the login command (OpenClaw, Hermes). Tell the person to approve it and pick the channels to publish to.
+The Uplika MCP server is `https://api.uplika.com/mcp`. It uses OAuth with dynamic client registration, so there is no key to paste. The browser approval screen opens the first time a tool is called (Claude Code, Codex, Hermes) or when you run the login command (OpenClaw). Tell the person to approve it and pick the channels to publish to.
 
 ## Claude Code
 
@@ -22,18 +22,17 @@ The Uplika MCP server is `https://api.uplika.com/mcp`. It uses OAuth with dynami
 
 ## OpenClaw
 
-1. `openclaw plugins install git:github.com/uplika/uplika-plugin@main`
-2. If the uplika MCP server did not come with the plugin: `openclaw mcp set uplika '{"url":"https://api.uplika.com/mcp","transport":"streamable-http","auth":"oauth"}'`
-3. `openclaw mcp login uplika`
+1. `openclaw plugins install uplika --marketplace uplika/uplika-plugin --force --accept-capabilities` (the source is outside ClawHub, so a shell without a terminal cancels the install unless these two flags are given)
+2. `openclaw mcp set uplika '{"url":"https://api.uplika.com/mcp","transport":"streamable-http","auth":"oauth"}'` (the plugin brings the server too, but `openclaw mcp login` only signs in to servers set here; the same name replaces the plugin's copy)
+3. `openclaw mcp login uplika` opens the approval screen. Wait for the person to approve it.
 4. Verify: call `list_accounts`; it answers with the connected accounts.
 
 ## Hermes
 
-1. `hermes skills tap add uplika/uplika-plugin`
-2. `hermes mcp add uplika` with URL `https://api.uplika.com/mcp` and auth `oauth`
-3. `hermes mcp login uplika`
-4. `/reload-mcp`
-5. Verify: call `list_accounts`; it answers with the connected accounts.
+1. `npx skills add uplika/uplika-plugin -g -a hermes-agent -s '*' -y` (installs the skills into `~/.hermes/skills`)
+2. Ask the person to run `hermes mcp add uplika --url https://api.uplika.com/mcp --auth oauth` in their own terminal and answer `y`. It asks questions, and without a terminal it saves the server without sign-in.
+3. Ask the person to start a new Hermes session.
+4. Verify: call `list_accounts`. The first call opens the approval screen; after it is approved, it answers with the connected accounts.
 
 ## Other agents
 

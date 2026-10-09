@@ -8,12 +8,12 @@ Publish, schedule and manage posts on the social channels you connect to [Uplika
 |---|---|
 | Claude Code | `claude plugin marketplace add uplika/uplika-plugin` then `claude plugin install uplika@uplika --scope user` |
 | Codex | `codex plugin marketplace add uplika/uplika-plugin` then `codex plugin add uplika@uplika` |
-| OpenClaw | `openclaw plugins install git:github.com/uplika/uplika-plugin@main` |
-| Hermes | `hermes skills tap add uplika/uplika-plugin`, `hermes mcp add uplika` (URL `https://api.uplika.com/mcp`, auth oauth), `hermes mcp login uplika` |
+| OpenClaw | `openclaw plugins install uplika --marketplace uplika/uplika-plugin --force --accept-capabilities`, then `openclaw mcp set uplika '{"url":"https://api.uplika.com/mcp","transport":"streamable-http","auth":"oauth"}'` and `openclaw mcp login uplika` |
+| Hermes | `npx skills add uplika/uplika-plugin -g -a hermes-agent -s '*' -y`, then in your terminal `hermes mcp add uplika --url https://api.uplika.com/mcp --auth oauth` (answer y) |
 
 Or tell your agent: `Read https://github.com/uplika/uplika-plugin/blob/main/INSTALL_FOR_AGENTS.md and follow it.`
 
-The first tool call opens the Uplika approval screen in your browser. Connect your channels at <https://uplika.com/dashboard/connections>.
+The first tool call opens the Uplika approval screen in your browser (OpenClaw opens it at `openclaw mcp login`). Connect your channels at <https://uplika.com/dashboard/connections>.
 
 If you added Uplika earlier with `claude mcp add` or `codex mcp add`, remove that entry (`claude mcp remove uplika` or `codex mcp remove uplika`) so the tools do not show up twice.
 
