@@ -1,0 +1,33 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "uplika",
+  "version": "0.1.0",
+  "description": "Publish, schedule and manage posts on the social channels you connect to Uplika, with skills that know the order to call tools in.",
+  "author": { "name": "Uplika", "email": "support@uplika.com", "url": "https://uplika.com" },
+  "homepage": "https://uplika.com",
+  "repository": "https://github.com/uplika/uplika-plugin",
+  "license": "MIT",
+  "keywords": ["social-media", "publishing", "threads", "instagram", "youtube", "naver-blog", "mcp"],
+  "skills": "./skills/",
+  "mcpServers": "./mcp.json",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Uplika",
+        "shortDescription": "Publish to your social channels from Codex",
+        "longDescription": "Publish, schedule and manage posts on the social channels you connect to Uplika, with skills that know the order to call tools in.",
+        "developerName": "Uplika",
+        "category": "Productivity",
+        "capabilities": ["Read", "Write"],
+        "websiteURL": "https://uplika.com",
+        "privacyPolicyURL": "https://uplika.com/en/privacy",
+        "termsOfServiceURL": "https://uplika.com/en/terms",
+        "defaultPrompt": [
+          "List my connected social accounts",
+          "Draft a Threads post about ...",
+          "Research Naver keywords for ..."
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "name": "uplika",
+  "interface": { "displayName": "Uplika" },
+  "plugins": [
+    {
+      "name": "uplika",
+      "source": { "source": "local", "path": "./" },
+      "policy": { "installation": "AVAILABLE" },
+      "category": "Productivity"
+    }
+  ]
+}

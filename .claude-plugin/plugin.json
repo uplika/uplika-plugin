@@ -1,0 +1,15 @@
+{
+  "name": "uplika",
+  "displayName": "Uplika",
+  "version": "0.1.0",
+  "description": "Publish, schedule and manage posts on the social channels you connect to Uplika, with skills that know the order to call tools in.",
+  "author": { "name": "Uplika", "email": "support@uplika.com", "url": "https://uplika.com" },
+  "homepage": "https://uplika.com",
+  "repository": "https://github.com/uplika/uplika-plugin",
+  "license": "MIT",
+  "keywords": ["social-media", "publishing", "threads", "instagram", "youtube", "naver-blog", "mcp"],
+  "privacyPolicyUrl": "https://uplika.com/en/privacy",
+  "termsOfServiceUrl": "https://uplika.com/en/terms",
+  "skills": "./skills/",
+  "mcpServers": "./.mcp.json"
+}

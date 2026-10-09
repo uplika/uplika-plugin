@@ -1,0 +1,19 @@
+{
+  "name": "uplika",
+  "owner": {
+    "name": "Uplika",
+    "url": "https://github.com/uplika"
+  },
+  "metadata": {
+    "description": "Uplika's agent plugin: the Uplika MCP server plus skills for publishing to the social channels you connect.",
+    "version": "0.1.0"
+  },
+  "plugins": [
+    {
+      "name": "uplika",
+      "source": "./",
+      "description": "Publish, schedule and manage posts on the social channels you connect to Uplika, with skills that know the order to call tools in.",
+      "category": "productivity"
+    }
+  ]
+}
