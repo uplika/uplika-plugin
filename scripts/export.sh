@@ -89,7 +89,9 @@ fi
 # 아래 트리 해시 대조가 정의상 같은 것을 비교한다
 mkdir -p "$TMP/stage"
 git -C "$ROOT" archive --format=tar HEAD:plugin | tar -x -C "$TMP/stage"
-rsync -a --delete --exclude .git "$TMP/stage/" "$TMP/repo/"
+# --checksum: 내용으로 비교한다. 클론과 압축 풀기가 같은 초에 끝나면 크기 · 수정 시각(초 단위)이 같은 파일을 rsync 가 같은 것으로 보고
+# 건너뛴다. 판 숫자만 바꾼 매니페스트 다섯(0.1.0 → 0.1.1)이 그렇게 빠져서 트리 해시 대조가 잡았다 (2026-10-10, macOS openrsync)
+rsync -a --checksum --delete --exclude .git "$TMP/stage/" "$TMP/repo/"
 cd "$TMP/repo"
 git add -A
 SHORT="$(git -C "$ROOT" rev-parse --short HEAD)"
