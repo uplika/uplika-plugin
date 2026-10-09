@@ -8,7 +8,7 @@ The Uplika MCP server is `https://api.uplika.com/mcp`. It uses OAuth with dynami
 
 1. `claude plugin marketplace add uplika/uplika-plugin`
 2. `claude plugin install uplika@uplika --scope user`
-3. If `claude mcp list` shows a plain `uplika` server from an earlier `claude mcp add`, run `claude mcp remove uplika` so the tools do not appear twice.
+3. If `claude mcp list` still shows an `uplika` server added earlier with `claude mcp add`, leave it: Claude Code hides the plugin's copy of the same server. If Uplika shows up twice another way (for example a `claude.ai uplika` connector next to the plugin), ask the person to turn one off in `/mcp`.
 4. Ask the person to reload plugins or restart the session.
 5. Verify: call `list_accounts`; it answers with the connected accounts.
 
@@ -16,7 +16,7 @@ The Uplika MCP server is `https://api.uplika.com/mcp`. It uses OAuth with dynami
 
 1. `codex plugin marketplace add uplika/uplika-plugin`
 2. `codex plugin add uplika@uplika`
-3. If uplika was added earlier with `codex mcp add`, run `codex mcp remove uplika`.
+3. An `uplika` server added earlier with `codex mcp add uplika` merges with the plugin's server of the same name; leave it. Only a second entry under another name doubles the tools; remove that one with `codex mcp remove <name>`.
 4. Ask the person to start a new session.
 5. Verify: call `list_accounts`; it answers with the connected accounts.
 

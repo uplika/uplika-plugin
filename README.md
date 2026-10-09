@@ -15,7 +15,7 @@ Or tell your agent: `Read https://github.com/uplika/uplika-plugin/blob/main/INST
 
 The first tool call opens the Uplika approval screen in your browser (OpenClaw opens it at `openclaw mcp login`). Connect your channels at <https://uplika.com/dashboard/connections>.
 
-If you added Uplika earlier with `claude mcp add` or `codex mcp add`, remove that entry (`claude mcp remove uplika` or `codex mcp remove uplika`) so the tools do not show up twice.
+If you added Uplika earlier with `claude mcp add` or `codex mcp add uplika`, you can keep it: Claude Code hides the plugin's copy of a server you already have, and Codex merges entries with the same name. If the Uplika tools still show up twice (for example a claude.ai connector next to the plugin), turn one off in `/mcp`.
 
 ## Skills only
 

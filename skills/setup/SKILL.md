@@ -18,10 +18,12 @@ Use this at the start of a session, when the person asks whether Uplika is conne
 
 ## Installed twice
 
-If the person added Uplika earlier as a plain MCP server, the tools now show up twice (once from that server, once from this plugin). Ask them to remove the old entry, then reload:
+A server the person added earlier by hand needs nothing done. Claude Code hides the plugin's copy of a server it already has (`claude mcp list` then shows only the old `uplika`), and Codex merges entries with the same name. Leave it: removing it only means approving once more.
 
-- Claude Code: `claude mcp remove uplika`
-- Codex: `codex mcp remove uplika`
+The tools do show up twice when Uplika arrives two other ways, for example the claude.ai connector (`claude.ai uplika`) next to this plugin, or a hand-added server under another name. Then ask the person to turn one off in `/mcp`, or to remove the extra entry by its name:
+
+- Claude Code: `claude mcp remove <name>`
+- Codex: `codex mcp remove <name>`
 
 ## When something fails
 
