@@ -33,6 +33,15 @@ if [ -n "$(git -C "$ROOT" status --porcelain -- plugin)" ]; then
   exit 1
 fi
 
+# gitignore 에 걸린 파일은 `git status` 에 안 보여서 커밋된 트리(= 사본)에서 조용히 빠진다. 아이콘 PNG 가 그렇게 빠질 뻔했다
+# (루트 .gitignore 의 `*.png`, 2026-10-10). 시험이 남기는 __pycache__ 만 빼고 하나라도 있으면 멈춘다
+IGNORED="$(git -C "$ROOT" ls-files --others --ignored --exclude-standard -- plugin | grep -v '__pycache__' || true)"
+if [ -n "$IGNORED" ]; then
+  echo "[export] plugin/ 에 gitignore 로 무시된 파일이 있다. 사본에 안 들어간다 (.gitignore 에 예외를 더하고 커밋한다):" >&2
+  echo "$IGNORED" >&2
+  exit 1
+fi
+
 if [ ! -f "$TOKEN_FILE" ]; then
   echo "[export] 토큰 파일이 없다: $TOKEN_FILE (GITHUB_UPLIKA_TOKEN=…)" >&2
   exit 1

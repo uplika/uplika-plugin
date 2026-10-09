@@ -17,6 +17,16 @@ The first tool call opens the Uplika approval screen in your browser (OpenClaw o
 
 If you added Uplika earlier with `claude mcp add` or `codex mcp add uplika`, you can keep it: Claude Code hides the plugin's copy of a server you already have, and Codex merges entries with the same name. If the Uplika tools still show up twice (for example a claude.ai connector next to the plugin), turn one off in `/mcp`.
 
+## What it sends and runs
+
+- **One MCP server.** The plugin declares a single MCP server, `https://api.uplika.com/mcp`, run by Uplika. You sign in with OAuth in your browser and choose which channels the agent may use.
+- **What goes to Uplika.** When you ask the agent to act, the request goes to that server: post text, media links, channel options, and the reply or DM text you approve. Uplika publishes it to the channels you connected and reads back your own posts, replies, messages and metrics. Uplika keeps your connected accounts and post history as described in the [privacy policy](https://uplika.com/en/privacy).
+- **Media files.** To upload a file from your computer, an agent with a shell sends it to Uplika's media storage on Backblaze B2 through a one-hour signed link the server returns. An agent without a shell gives you an upload page on uplika.com instead.
+- **Nothing goes out without your approval.** The skills show you the text, the channels and the time, and publish, reply, send or turn on an automation only after you say yes.
+- **Local scripts.** A few YouTube and Instagram skills include small Python scripts (standard library only) that score hooks, titles and captions or read a transcript or analytics CSV you provide. They make no network calls.
+- **Public YouTube data.** When a shell is available, some YouTube skills suggest `yt-dlp` or downloading thumbnail images to read public video data from YouTube. Your data is not sent there.
+- **On your own disk.** The voice skill keeps your writing style in `~/.uplika/<workspace-slug>/voice.md`.
+
 ## Skills only
 
 `npx skills add uplika/uplika-plugin` installs just the skills. Add the MCP server address `https://api.uplika.com/mcp` to your agent's settings yourself.

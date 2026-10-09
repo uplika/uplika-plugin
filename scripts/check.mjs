@@ -140,11 +140,26 @@ for (const [rel, url] of Object.entries(urls)) {
 /* 매니페스트끼리 이름 · 판이 같다 */
 const versions = {
   ".claude-plugin/plugin.json": readJson(".claude-plugin/plugin.json").version,
+  ".claude-plugin/marketplace.json": readJson(".claude-plugin/marketplace.json").metadata?.version,
   "plugin.json": readJson("plugin.json").version,
   "gemini-extension.json": readJson("gemini-extension.json").version,
   ".kimi-plugin/plugin.json": readJson(".kimi-plugin/plugin.json").version,
   ".grok-plugin/plugin.json": readJson(".grok-plugin/plugin.json").version,
 };
+
+/*
+  Anthropic 디렉터리 목록 칸 (2026-10-10). `icon` 은 플러그인 안의 이미지 경로, URL 넷은 https. 포털 「검증」 이 아이콘을 요구한다.
+  아이콘 바이트는 `brand/scripts/export.mjs` 가 512 PNG 에서 복사하고 `brand/icon-drift.test.mjs` 가 해시로 지킨다
+*/
+const listing = readJson(".claude-plugin/plugin.json");
+if (typeof listing.icon !== "string" || !listing.icon.startsWith("./") || !IMAGE_EXT.has(path.extname(listing.icon).toLowerCase())) {
+  fail(".claude-plugin/plugin.json", `icon must be a ./ path to an image inside the plugin, got "${listing.icon ?? ""}"`);
+} else if (!existsSync(path.join(ROOT, listing.icon))) {
+  fail(".claude-plugin/plugin.json", `icon file ${listing.icon} does not exist`);
+}
+for (const key of ["privacyPolicyUrl", "termsOfServiceUrl", "documentationUrl", "supportUrl"]) {
+  if (typeof listing[key] !== "string" || !listing[key].startsWith("https://")) fail(".claude-plugin/plugin.json", `${key} must be an https:// URL`);
+}
 const distinct = new Set(Object.values(versions));
 if (distinct.size !== 1) fail("manifests", `versions differ: ${JSON.stringify(versions)}`);
 
