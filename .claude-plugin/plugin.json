@@ -1,7 +1,7 @@
 {
   "name": "uplika",
   "displayName": "Uplika",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "Publish, schedule and manage posts on the social channels you connect to Uplika, with skills that know the order to call tools in.",
   "author": { "name": "Uplika", "email": "support@uplika.com", "url": "https://uplika.com" },
   "homepage": "https://uplika.com",
