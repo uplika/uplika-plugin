@@ -34,7 +34,7 @@ Before handing anything over, write the three search queries this video should w
 ## With Uplika connected
 
 1. **Check each query.** Call `search_youtube_videos` with each of the three queries as `q`: `order` relevance shows what YouTube ranks for it, viewCount what got watched. Read the titles and `viewSubRatio`; a query where the top results are all large channels with low ratios is hard to win. Uplika's search has no search volume: say so, and do not invent one. The same search again is cached and free; each new one spends one of the person's daily searches (`quota`).
-   - `research_tool_disabled`: ask the person once to turn the tool on at the `enableUrl` in the error, and do not retry until they say it is on. Write without it meanwhile.
+   - `research_tool_disabled`: only a research tool still in beta answers this. Ask the person once to turn it on at the `enableUrl` in the error, and do not retry until they say it is on. Write without it meanwhile.
    - `research_quota_exceeded` or `youtube_quota_exhausted`: skip the check and say so.
 2. **Apply**, only after the person approves the description and tags:
    - Find the YouTube account in `list_accounts` and read the video's current title from `list_channel_posts` (each item's `text` is the title, a blank line, then the description).

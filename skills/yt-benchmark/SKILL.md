@@ -11,15 +11,17 @@ Find the videos on a topic that pulled far more viewers than their channel has s
 
 - **Topic**, as a viewer would type it, and the video the person wants to make, in one line.
 - **Format**: Shorts, long-form or both.
-- **Period**: how recent (the tool takes 7d, 1m, 3m, 6m, 1y, or no limit).
+- **Period**: how recent. Use one of the `period` values the tool description lists, or no limit.
 - **Threshold**: views over subscribers. The default is **3**; if the person gives a value, theirs wins.
 
 ## 2. Search several ways
 
+If a call answers `workspace_required`, the account has more than one workspace: show the names it lists, ask which one, and pass that `workspaceId` on every later call in this session.
+
 Call `search_youtube_videos` more than once: vary `order` (viewCount, relevance, date), `period` and `format` around what the person asked, and try one or two other ways a viewer would phrase the topic. Pass the one-line video as `topic` so each answer's `prompt` is filled in, and use the largest `max` the tool accepts.
 
 - The same search again is cached and free; each new combination spends one of the person's daily searches. Read `quota` (`usedToday`, `dailyLimit`) in each answer, tell the person how many searches the sweep will take before you start, and stop before the allowance runs out.
-- `research_tool_disabled`: ask the person once to turn the tool on at the `enableUrl` in the error, and do not retry until they say it is on.
+- `research_tool_disabled`: only a research tool still in beta answers this. Ask the person once to turn it on at the `enableUrl` in the error, and do not retry until they say it is on.
 - `research_quota_exceeded` (the person's own daily searches are used up): stop the sweep, work with what you have, and say so.
 - `youtube_quota_exhausted` (the shared quota for today, back at `resetsAt`): stop and work with what you have. When a shell is available, the `yt-viral` skill's method without Uplika (`yt-dlp --flat-playlist -J` on each candidate channel, ranked by the multiple over the channel's own median) can stand in; say the axis changed.
 - `platform_error`: YouTube did not answer; try once more a minute later. Anything else: `get_help` with the code.

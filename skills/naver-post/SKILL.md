@@ -57,7 +57,7 @@ Use it for any Naver Blog post. For a post meant to be cited in Naver's AI Brief
 - `naver_rate_limited`: Naver capped how much this ID publishes. Do not call again before `retryAfterSeconds`; the draft is already in Naver.
 - `extension_outdated`: the response carries the installed and required versions, and Uplika asks that Chrome to update at the same moment. Relay it with `faq:extension-not-updating` and try again after the person says it updated.
 - Queued because the extension is offline: `faq:naver-extension-offline`.
-- `research_tool_disabled` from `list_naver_keyword_reports`: ask the person once to turn keyword research on at the link in the error, and do not retry until they say it is on.
+- `research_tool_disabled` from `list_naver_keyword_reports`: only a research tool still in beta answers this. Ask the person once to turn it on at the link in the error, and do not retry until they say it is on.
 - `account_disconnected`: hand over to the `troubleshoot` skill.
 - Anything else: call `get_help` with the error code and pass its answer and link on.
 

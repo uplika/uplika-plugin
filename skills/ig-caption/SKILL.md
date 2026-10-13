@@ -94,6 +94,8 @@ linter:     READY
 
 ## With Uplika connected
 
+If a call answers `workspace_required`, the account has more than one workspace: show the names it lists, ask which one, and pass that `workspaceId` on every later call in this session.
+
 This skill writes the caption and does not publish. The caption becomes the `content` of the post that `ig-reel`, `ig-carousel` or the publish skill sends, after the person approves it there.
 
 - Check the length against Instagram in `list_platforms` (its character limit and `charCount` rule). Emoji can count differently there than in `scripts/caption.py`; when the two disagree, `list_platforms` wins.

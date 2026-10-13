@@ -13,7 +13,7 @@ Publish, schedule and manage posts on the social channels you connect to [Uplika
 
 Or tell your agent: `Read https://github.com/uplika/uplika-plugin/blob/main/INSTALL_FOR_AGENTS.md and follow it.`
 
-The first tool call opens the Uplika approval screen in your browser (OpenClaw opens it at `openclaw mcp login`). Connect your channels at <https://uplika.com/dashboard/connections>.
+Codex and Hermes open the Uplika approval screen in your browser on the first tool call, and OpenClaw opens it at `openclaw mcp login`. In Claude Code the agent hands you the approval link (or run `/mcp` and pick Authenticate); the tools appear as soon as you approve. Connect your channels at <https://uplika.com/dashboard/connections>.
 
 If you added Uplika earlier with `claude mcp add` or `codex mcp add uplika`, you can keep it: Claude Code hides the plugin's copy of a server you already have, and Codex merges entries with the same name. If the Uplika tools still show up twice (for example a claude.ai connector next to the plugin), turn one off in `/mcp`.
 
@@ -29,7 +29,7 @@ If you added Uplika earlier with `claude mcp add` or `codex mcp add uplika`, you
 
 ## Skills only
 
-`npx skills add uplika/uplika-plugin` installs just the skills. Add the MCP server address `https://api.uplika.com/mcp` to your agent's settings yourself.
+`npx skills add uplika/uplika-plugin -g` installs just the skills. Add the MCP server address `https://api.uplika.com/mcp` to your agent's settings yourself.
 
 ## License and sources
 

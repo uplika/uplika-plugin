@@ -9,7 +9,7 @@ Use this at the start of a session, when the person asks whether Uplika is conne
 
 ## Procedure
 
-1. Call `list_accounts`. This first call is also what starts sign-in: if the agent is not authorized yet, it opens the Uplika approval screen in the person's browser. Tell them to sign in (or sign up), pick the workspace and the channels, and press Allow. Then call `list_accounts` again.
+1. Call `list_accounts`. Sign-in differs by agent. In Claude Code the plugin's tools stay hidden until the server is authorized: Claude Code marks the server as needing authentication and offers an `authenticate` tool for it. Call that tool (or ask the person to run `/mcp` and pick Authenticate), give the person the URL it returns, and when they approve in the browser the real tools appear in the same session without a restart. If the browser could not reach the localhost callback, ask for the full callback URL and pass it to `complete_authentication`. In Codex and Hermes the first tool call opens the approval screen; in OpenClaw it opens at `openclaw mcp login uplika`. Tell the person to sign in (or sign up), pick the workspace and the channels, and press Allow. Then call `list_accounts` again.
 2. If the answer is `workspace_required`, the account has more than one workspace. Show the names it lists, ask which one, and pass that `workspaceId` on every later call in this session.
 3. If the list is empty, no channel is connected in that workspace. Send the person to https://uplika.com/dashboard/connections, wait until they say it is done, then call `list_accounts` again.
 4. Show what is connected: channel, handle, status. Only `active` accounts publish. For any other status (expired, revoked) say which account and send them to the same connections page to reconnect.
@@ -31,7 +31,7 @@ Call `get_help` with the error code and pass its answer and link on. `reconsent_
 
 ## Tools
 
-- `list_accounts`: what is connected, and the first call that triggers sign-in
+- `list_accounts`: what is connected, and the call to make first (in Claude Code only after the server is authorized)
 - `bridge_status`: whether the Naver Blog extension is online
 - `list_platforms`: channel rules, status and the features table
 - `get_help`: the answer for an error code

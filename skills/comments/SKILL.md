@@ -9,6 +9,8 @@ Use this for "check my comments", "reply to the comments on yesterday's post", o
 
 ## Procedure
 
+If a call answers `workspace_required`, the account has more than one workspace: show the names it lists, ask which one, and pass that `workspaceId` on every later call in this session.
+
 1. Find the post: a link or id from the person goes straight to `open_post` (text, replies and metrics in one call). Without one, `list_posts` (posts made through Uplika) or `list_channel_posts` (everything on the channel, including posts written in the app) and let them pick.
 2. Read the thread with `list_replies` (nested replies included; `truncated` means it stopped early).
 3. Sort every reply into four groups and show them as a short table:

@@ -25,9 +25,11 @@ python3 scripts/hookscore.py --hook "one line"      # score a single one
 
 ## With Uplika connected
 
+If a call answers `workspace_required`, the account has more than one workspace: show the names it lists, ask which one, and pass that `workspaceId` on every later call in this session.
+
 Optional, before the hooks: call `search_youtube_videos` with the idea as a viewer would type it (`q`), `order` viewCount, a recent `period`, and the idea as `topic`. The top titles, and the ones with a high `viewSubRatio` (views over subscribers), are openings this niche already answered, and the answer's `prompt` is a brief for titles and hooks you may follow. Treat them as examples. Still write your own five against the formulas and score them.
 
-- `research_tool_disabled`: ask the person once to turn the tool on at the `enableUrl` in the error, and do not retry until they say it is on. Write the script without it meanwhile.
+- `research_tool_disabled`: only a research tool still in beta answers this. Ask the person once to turn it on at the `enableUrl` in the error, and do not retry until they say it is on. Write the script without it meanwhile.
 - `research_quota_exceeded` (their own daily searches) or `youtube_quota_exhausted` (the shared quota, back at `resetsAt`): skip the search and write without it.
 - Any other error: call `get_help` with its code and pass the answer on.
 

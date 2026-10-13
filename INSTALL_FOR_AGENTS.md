@@ -2,7 +2,7 @@
 
 You are an AI coding agent. Decide which agent you are running in, then follow only that section. Run the commands yourself; ask the person only when a step needs their browser.
 
-The Uplika MCP server is `https://api.uplika.com/mcp`. It uses OAuth with dynamic client registration, so there is no key to paste. The browser approval screen opens the first time a tool is called (Claude Code, Codex, Hermes) or when you run the login command (OpenClaw). Tell the person to approve it and pick the channels to publish to.
+The Uplika MCP server is `https://api.uplika.com/mcp`. It uses OAuth with dynamic client registration, so there is no key to paste. The browser approval screen opens the first time a tool is called (Codex, Hermes) or when you run the login command (OpenClaw). In Claude Code the plugin's tools stay hidden until the server is authorized: call the `authenticate` tool Claude Code offers for the server (or have the person run `/mcp` and pick Authenticate), give them the URL it returns, and the real tools appear once they approve. Tell the person to approve it and pick the channels to publish to.
 
 ## Claude Code
 
@@ -10,7 +10,8 @@ The Uplika MCP server is `https://api.uplika.com/mcp`. It uses OAuth with dynami
 2. `claude plugin install uplika@uplika --scope user`
 3. If `claude mcp list` still shows an `uplika` server added earlier with `claude mcp add`, leave it: Claude Code hides the plugin's copy of the same server. If Uplika shows up twice another way (for example a `claude.ai uplika` connector next to the plugin), ask the person to turn one off in `/mcp`.
 4. Ask the person to reload plugins or restart the session.
-5. Verify: call `list_accounts`; it answers with the connected accounts.
+5. If Claude Code says the server needs authentication, call its `authenticate` tool and give the person the URL; the real tools appear after they approve.
+6. Verify: call `list_accounts`; it answers with the connected accounts.
 
 ## Codex
 

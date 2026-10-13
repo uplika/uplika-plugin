@@ -14,7 +14,7 @@ Every writing skill in this plugin reads one file before it writes: `~/.uplika/<
 
 ## Procedure
 
-1. Find the workspace slug: `list_accounts` shows the workspace; if the account has several and the answer is `workspace_required`, ask which one.
+1. Find the workspace slug: `list_accounts` shows the workspace; if the account has several and the answer is `workspace_required`, ask which one and pass that `workspaceId` on every later call in this session.
 2. If the file exists, read it and ask what to change. Otherwise start from `references/voice-template.md`.
 3. Ask three questions first, in the person's language: the tone (two or three words), how posts usually end, and words they never use. Then the optional ones: who they talk to, what they will not claim, their signature (hashtags, sign-off, links).
 4. Pull examples from what they actually wrote: call `list_channel_posts` for their main channel and take three to five recent posts (their best ones if they say which). Paste them as they are; do not rewrite them.

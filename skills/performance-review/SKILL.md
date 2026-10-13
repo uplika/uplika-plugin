@@ -9,6 +9,8 @@ Use this for "how did my posts do this week", a monthly report, or before planni
 
 ## Procedure
 
+If a call answers `workspace_required`, the account has more than one workspace: show the names it lists, ask which one, and pass that `workspaceId` on every later call in this session.
+
 1. Window: ask for the period if the person did not say (this week, last 30 days).
 2. Collect posts: `list_posts` with `since` and `until` for posts made through Uplika, and `list_channel_posts` for posts written in the channels' own apps when the person wants those too.
 3. For each post, `get_insights`: views, likes, replies, reposts, quotes, shares. **Null is not zero**: some channels do not report views or shares, or not yet. Keep nulls out of averages and say which channel did not report.
