@@ -20,8 +20,8 @@ All of it runs in the Uplika extension in the person's Chrome. Call `bridge_stat
 
 Never state, estimate or promise how many comments, likes or follows are safe per day or per hour, and never invent a pace. Naver closed its writing API over mechanical mass activity, and when Naver restricts an account it is the person's blog that gets suspended, not Uplika. Uplika's server and Naver decide the limits:
 
-- The neighbor comment automation applies its own caps and skip rules on the server. Its description in `list_automation_templates` says what it skips; repeat that, not numbers of your own.
-- If a call answers `naver_rate_limited` or `rate_limited`, stop. Do not call again before `retryAfterSeconds`, and do not work around it through another account or workspace.
+- The neighbor comment automation applies its own skip rules on the server (one comment per post, a gap between comments, nothing older than 48 hours). Uplika sets no daily count of its own since 2026-10-14; its description in `list_automation_templates` says what it skips; repeat that, not numbers of your own.
+- If a call answers `naver_rate_limited`, `naver_engagement_limited` or `rate_limited`, stop. Do not call again before `retryAfterSeconds`, and do not work around it through another account or workspace. `naver_engagement_limited` means Naver itself stopped showing the add-neighbor page for that blog today (the page came back blank more than once); the answer carries `until`, and nothing goes out from that blog before midnight Korea time. Tell the person it is Naver's limit, not Uplika's, and pass on the `help` link.
 - Like and follow only the posts and blogs the person names. Do not walk a list of blogs or a search result liking or following each one.
 
 ## Comment on neighbors' new posts (automation)
