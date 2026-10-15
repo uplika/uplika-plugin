@@ -24,8 +24,9 @@ Naver Blog drafts (임시저장 글) and edits to published posts. There are thr
 2. Show the drafts (title and when each was last saved) and let the person pick one. The list does not show a draft's category, tags or visibility, so do not claim to know them:
    - A draft saved through Uplika with `options.naver_blog.draftOnly` has no category, tags or visibility. Ask for them and pass them; read the categories from `list_accounts` (`naverBlog.categories`).
    - A draft saved by hand keeps whatever Naver stored with it, which Uplika cannot see. Ask whether to leave those as they are or to set the category, tags or visibility explicitly.
+   - A draft left behind by a failed publish is not the finished post. If an earlier failure said "A half-finished Naver draft may have been left", do not publish that draft: send the original post again with `retry_post` and ask the person to delete the draft in Naver.
 3. Publish only after the person approves. Call `publish_naver_draft` with the `logNo`, plus `title`, `categoryId` (or `category` by name), `tags` or `openType` only for what they want changed, and `wait: true`. Do not send content: the text is whatever is in Naver.
-4. If the response carries `bridge`, the post is queued: relay `bridge.userMessage` and do not say it was published. Otherwise call `get_post` for the status and the permalink. A draft that Uplika made turns into the same post record instead of a second one.
+4. If the response carries `bridge`, the post is queued: relay `bridge.userMessage` and do not say it was published. If it carries `note`, pass it on to the person: it warns when the draft has no body text, which is what a failed publish leaves. Otherwise call `get_post` for the status and the permalink. A draft that Uplika made turns into the same post record instead of a second one.
 
 ## Publish Uplika's copy instead
 
@@ -49,6 +50,7 @@ A post Uplika saved with `options.naver_blog.draftOnly` has a Naver target whose
 - `extension_outdated`: the extension in that Chrome is too old for this job. The response says the installed and required versions, and Uplika asks that Chrome to update at the same moment. Relay it with `faq:extension-not-updating` and try again after the person says it updated.
 - `naver_form_required`: the response lists `forms` (id, name, when). Show them and let the person pick (`options.naver_blog.form`), or set `options.naver_blog.layout` to `as-is` to keep the body exactly as written.
 - `naver_category_required` or `naver_category_unknown`: show the categories from `list_accounts` and let the person pick.
+- A draft publish that failed with "Naver closed the publish window without opening a new post": sending the same draft again from here is unlikely to help. The person opens that draft in Naver and publishes it there, or you send the original post again (after they approve) and they delete the half-finished draft.
 - `naver_rate_limited`: Naver capped how much this ID publishes. Do not call again before `retryAfterSeconds`; the draft is already in Naver.
 - `naver_keep_unknown`: a `@keep` id that is not in the post's current source. Use the ids from the source.
 - `naver_media_over_limit`: the body places more photos or videos than Naver takes (the limit is in `list_platforms`). Nothing changed; `droppedIds` says what to take out.
@@ -63,6 +65,7 @@ A post Uplika saved with `options.naver_blog.draftOnly` has a Naver target whose
 - `list_accounts`: the blog's categories, for drafts that keep none
 - `publish_naver_draft`: publish a draft exactly as it is in Naver (after approval)
 - `update_post`: rewrite a published post at the same URL, or publish Uplika's copy of a draft (after approval)
+- `retry_post`: send the original post again when a failed publish left a half-finished draft (after approval)
 - `get_post`: status and permalink after publishing or editing
 - `list_platforms`: Naver's media limits
 - `get_help`: the answer for an error code
