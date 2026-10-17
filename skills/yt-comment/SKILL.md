@@ -22,6 +22,7 @@ The comment section is a retention surface, not a chore. Replies in the first fe
 4. **Show every reply and every hide** (the comment and what you will do with it) and send only what the person approves: `reply` with the video link as `id`, the comment's id from `list_replies` as `replyTo`, and `wait: true`. Bait the person wants out of sight goes through `hide_reply` with the comment id and the video as `postId`; `hide: false` shows it again.
 5. Pinning and hearting are not among Uplika's tools: name the comment to pin and the ones to heart, and the person does it in YouTube Studio.
 6. If a call answers `workspace_required`, show the workspaces it lists, ask which one, and pass `workspaceId`. A channel that is not connected: https://uplika.com/dashboard/connections. Other errors: `get_help` with the code; `reconsent_required` and `account_disconnected` go to the `troubleshoot` skill.
+7. `youtube_quota_exhausted` from `list_replies` or `hide_reply`, or a `reply` whose target ends with `youtube_daily_cap`: Uplika's daily YouTube limit, which everyone on Uplika shares, ran out: stop and do not repeat the call, tell the person when it refills (`resetsAt`, or the time in the message), and do not ask them to reconnect, because it is not their account (`faq:youtube-daily-limit`). Keep the approved replies and send them after that time.
 
 ## Without Uplika
 

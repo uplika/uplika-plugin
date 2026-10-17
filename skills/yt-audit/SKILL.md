@@ -22,6 +22,7 @@ The input is the person's own connected channel instead of a pasted URL.
 - Call `get_insights` on each of the last ten (the link works as `id`): views, likes and comments. Null means YouTube did not report it, not zero.
 - What Uplika cannot see: impressions, click-through rate and retention. Ask the person for those from YouTube Studio, or send them to `yt-retention` with the export.
 - If a call answers `workspace_required`, show the workspaces it lists, ask which one, and pass `workspaceId`. A channel that is not connected: https://uplika.com/dashboard/connections, or use the steps without Uplika. Other errors: `get_help` with the code.
+- `youtube_quota_exhausted` from `list_channel_posts`, or `noteCode` `youtube_quota_exhausted` from `get_insights` (it answers without numbers that day): Uplika's daily YouTube limit, which everyone on Uplika shares, ran out: stop and do not repeat the call, tell the person when it refills (`resetsAt`, or the time in the message), and do not ask them to reconnect, because it is not their account (`faq:youtube-daily-limit`). Audit with what you have, or pick it up after that time.
 
 ## Without Uplika
 

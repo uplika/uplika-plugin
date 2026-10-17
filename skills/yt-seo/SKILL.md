@@ -42,6 +42,7 @@ Before handing anything over, write the three search queries this video should w
    - Send only the `options.youtube` fields you are changing; the rest stay as they are on YouTube.
    - Read the result and any warning out to the person.
 3. If a call answers `workspace_required`, show the workspaces it lists, ask which one, and pass `workspaceId`. A channel that is not connected: https://uplika.com/dashboard/connections. Other errors: `get_help` with the code; `account_disconnected` goes to the `troubleshoot` skill.
+4. `youtube_quota_exhausted` from `update_post` or `list_channel_posts` (or an `update_post` result whose warning or target code is `youtube_daily_cap`): Uplika's daily YouTube limit, which everyone on Uplika shares, ran out: stop and do not repeat the call, tell the person when it refills (`resetsAt`, or the time in the message), and do not ask them to reconnect, because it is not their account (`faq:youtube-daily-limit`). The search in step 1 runs on a separate allowance, so it can still answer on such a day.
 
 ## Without Uplika
 

@@ -48,6 +48,7 @@ The chapter block goes in the description. After the person approves the block a
 3. Call `update_post` with the video link as `id`, `wait: true`, the new description as `content`, and the current `options.youtube.title`. Always send the title: for a video uploaded through Uplika, `options` replaces what Uplika has on record and YouTube needs a title. Send no other `options.youtube` field; the rest stay as they are on YouTube.
 4. YouTube measures the description with its own rule (`list_platforms` has it); if the new one is too long, the call says so. Read the result and any warning out to the person.
 5. If a call answers `workspace_required`, show the workspaces it lists, ask which one, and pass `workspaceId`. A channel that is not connected: https://uplika.com/dashboard/connections. Other errors: `get_help` with the code; `account_disconnected` goes to the `troubleshoot` skill.
+6. `youtube_quota_exhausted` from `update_post` or `list_channel_posts`, or an `update_post` result with `youtube_daily_cap`: Uplika's daily YouTube limit, which everyone on Uplika shares, ran out: stop and do not repeat the call, tell the person when it refills (`resetsAt`, or the time in the message), and do not ask them to reconnect, because it is not their account (`faq:youtube-daily-limit`).
 
 ## Without Uplika
 

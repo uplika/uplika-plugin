@@ -21,6 +21,7 @@ A plan that does not fit the week is a list of regrets. Ask two questions before
 3. **Schedule**, after the person approves the whole table. For each slot whose video file is ready, prepare it the way the `yt-upload` skill does (media id, `options.youtube.title`, privacy, the made-for-kids answer) and call `publish` with `scheduledAt` set to the slot's time with a time zone offset. Ask which time zone they mean; do not guess. Uplika keeps the video and uploads it at that time. Slots without a finished video stay in the plan and nothing is scheduled for them.
 4. Each `publish` answers with status scheduled and its time: show the person the list of what is booked.
 5. If a call answers `workspace_required`, show the workspaces it lists, ask which one, and pass `workspaceId` on every call, `publish` included. A channel that is not connected: https://uplika.com/dashboard/connections. Other errors: `get_help` with the code.
+6. `youtube_quota_exhausted` from `list_channel_posts`, or `noteCode` `youtube_quota_exhausted` from `get_insights`: Uplika's daily YouTube limit, which everyone on Uplika shares, ran out: stop and do not repeat the call, tell the person when it refills (`resetsAt`, or the time in the message), and do not ask them to reconnect, because it is not their account (`faq:youtube-daily-limit`). A booked upload that comes due on such a day ends with `youtube_daily_cap` and is not sent; it goes again only when someone sends it after that time.
 
 ## Without Uplika
 

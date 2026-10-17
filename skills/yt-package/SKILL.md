@@ -47,6 +47,7 @@ Generate ten titles, run them all through `scripts/title.py`, show the person th
    - To change the thumbnail image too, get a media id for the image the way the `yt-upload` skill does and pass it as `options.youtube.thumbnailMediaId` in the same call. It works on long-form videos on verified channels only (`list_platforms` has the Shorts rule).
    - Read the result and any warning out to the person.
 4. If a call answers `workspace_required`, show the workspaces it lists, ask which one, and pass `workspaceId`. A channel that is not connected cannot be changed from here: send the person to https://uplika.com/dashboard/connections. Other errors: `get_help` with the code; `account_disconnected` goes to the `troubleshoot` skill.
+5. `youtube_quota_exhausted` from `update_post` or `list_channel_posts`, `noteCode` `youtube_quota_exhausted` from `get_insights` (no numbers that day), or an `update_post` result with `youtube_daily_cap`: Uplika's daily YouTube limit, which everyone on Uplika shares, ran out: stop and do not repeat the call, tell the person when it refills (`resetsAt`, or the time in the message), and do not ask them to reconnect, because it is not their account (`faq:youtube-daily-limit`).
 
 ## Without Uplika
 

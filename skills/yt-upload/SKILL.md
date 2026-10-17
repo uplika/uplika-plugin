@@ -62,6 +62,8 @@ Call `get_post` with the returned id: the status, the link and the warning. Read
 
 Call `get_help` with the error code and pass its answer and link on (for example `youtube_title_required`, `youtube_title_too_long` or `media_expired`). `account_disconnected` and `reconsent_required` go to the `troubleshoot` skill.
 
+A target that ends with `youtube_daily_cap`, or a call that answers `youtube_quota_exhausted`, means Uplika's daily YouTube limit, which everyone on Uplika shares, ran out: stop and do not repeat the call, tell the person when it refills (`resetsAt`, or the time in the message), and do not ask them to reconnect, because it is not their account (`faq:youtube-daily-limit`). Nothing went out, so send the video again after that time, not before; `get_quota` shows `paused` while it lasts.
+
 ## Tools
 
 - `list_platforms`: YouTube's rules and the `options.youtube` schema
