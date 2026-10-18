@@ -28,7 +28,7 @@ Show the full text (every chain piece), the account and the time. Publish only a
 ## Replies
 
 - Read with `list_replies` on the post (or `open_post` from a link). Draft replies in the same voice, show them, send approved ones with `reply`.
-- Mentions of the account come from `list_mentions` when the account holds that permission; if it answers `feature_in_review`, the permission is still in review and reconnecting does not help (the `troubleshoot` skill explains).
+- Mentions of the account come from `list_mentions` when the account holds that permission; if its `notice` says `reconsent_required`, the account was connected without it and one reconnect adds it (the `troubleshoot` skill explains).
 - Threads has no direct messages (`faq:threads-no-dm`). Liking and mentions depend on permissions shown in the features table of `list_platforms`; read it rather than promising.
 
 ## Weekly review

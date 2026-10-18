@@ -17,7 +17,7 @@ Use this when a call fails, a post is stuck, an automation did not react, a DM d
 
 | Code | What it means | What to do |
 |---|---|---|
-| `reconsent_required` | The connected account is missing a permission this action needs (`faq:dm-reconnect`) | Send the person to https://uplika.com/dashboard/connections to reconnect that account, then try again |
+| `reconsent_required` | The connected account is missing a permission this action needs: the DM permissions, or the own permission of liking on Instagram or of Threads mentions (`faq:dm-reconnect`) | Send the person to https://uplika.com/dashboard/connections to reconnect that account and approve every permission (when connecting through Facebook, Edit settings rather than Continue with previous settings), then try again |
 | `feature_in_review` | The permission is still in the platform's review (`faq:feature-in-review`) | Reconnecting does not help until the review passes. Say so and stop |
 | `account_disconnected` | The post's account was disconnected (`faq:disconnected-posts`) | Reconnect the same account; the post comes back with it |
 | `workspace_required` | The account has more than one workspace (`faq:workspace-required`) | Show the listed workspaces, ask which, pass `workspaceId` |

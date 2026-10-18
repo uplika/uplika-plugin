@@ -46,8 +46,8 @@ If the person uses Threads reply approval, replies to their Threads posts wait i
 
 ## Errors
 
-- `reconsent_required`: the account was connected without the messaging permissions. The `troubleshoot` skill walks the person through reconnecting (`faq:dm-reconnect`).
-- `feature_in_review`: a mention list can carry this as a `notice` while that permission is in Meta's review; reconnecting does not help yet. The `troubleshoot` skill explains.
+- `reconsent_required`: the account was connected without the messaging permissions, or (on a mention list, as a `notice`) without the mentions permission. Reconnecting the account adds it; the `troubleshoot` skill walks the person through it (`faq:dm-reconnect`).
+- `feature_in_review`: the permission is still in the platform's review and reconnecting does not help yet. The `troubleshoot` skill explains.
 - `account_disconnected`: the `troubleshoot` skill.
 - Anything else: call `get_help` with the code and pass its answer and url on.
 
