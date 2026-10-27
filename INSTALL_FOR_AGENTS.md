@@ -23,7 +23,7 @@ The Uplika MCP server is `https://api.uplika.com/mcp`. It uses OAuth with dynami
 
 ## OpenClaw
 
-1. `openclaw plugins install uplika --marketplace uplika/uplika-plugin --force --accept-capabilities` (the source is outside ClawHub, so a shell without a terminal cancels the install unless these two flags are given)
+1. `openclaw plugins install clawhub:@uplika/uplika --accept-capabilities` (ClawHub is a source OpenClaw trusts, so the install shows its security audit and goes on without asking; a shell without a terminal still needs `--accept-capabilities` to accept the plugin's skills and MCP server. Keep the `clawhub:` prefix: without it the name is looked up on npm instead)
 2. `openclaw mcp set uplika '{"url":"https://api.uplika.com/mcp","transport":"streamable-http","auth":"oauth"}'` (the plugin brings the server too, but `openclaw mcp login` only signs in to servers set here; the same name replaces the plugin's copy)
 3. `openclaw mcp login uplika` opens the approval screen. Wait for the person to approve it.
 4. Verify: call `list_accounts`; it answers with the connected accounts.

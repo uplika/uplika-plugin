@@ -8,7 +8,7 @@ Publish, schedule and manage posts on the social channels you connect to [Uplika
 |---|---|
 | Claude Code | `claude plugin marketplace add uplika/uplika-plugin` then `claude plugin install uplika@uplika --scope user` |
 | Codex | `codex plugin marketplace add uplika/uplika-plugin` then `codex plugin add uplika@uplika` |
-| OpenClaw | `openclaw plugins install uplika --marketplace uplika/uplika-plugin --force --accept-capabilities`, then `openclaw mcp set uplika '{"url":"https://api.uplika.com/mcp","transport":"streamable-http","auth":"oauth"}'` and `openclaw mcp login uplika` |
+| OpenClaw | `openclaw plugins install clawhub:@uplika/uplika --accept-capabilities`, then `openclaw mcp set uplika '{"url":"https://api.uplika.com/mcp","transport":"streamable-http","auth":"oauth"}'` and `openclaw mcp login uplika` |
 | Hermes | `npx skills add uplika/uplika-plugin -g -a hermes-agent -s '*' -y`, then in your terminal `hermes mcp add uplika --url https://api.uplika.com/mcp --auth oauth` (answer y) |
 
 Or tell your agent: `Read https://github.com/uplika/uplika-plugin/blob/main/INSTALL_FOR_AGENTS.md and follow it.`
