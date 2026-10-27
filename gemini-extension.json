@@ -1,6 +1,6 @@
 {
   "name": "uplika",
-  "version": "0.1.14",
+  "version": "0.1.15",
   "description": "Publish, schedule and manage posts on the social channels you connect to Uplika, with skills that know the order to call tools in.",
   "mcpServers": {
     "uplika": { "httpUrl": "https://api.uplika.com/mcp" }

@@ -11,7 +11,9 @@ Use when the person says "stories", "what do I post on my story", "story sequenc
 
 Stories are not a smaller feed. The feed is how strangers find you. Stories are how the people who already follow you decide whether you are a person worth buying from, and they are the only surface on Instagram where a tap turns into a conversation in one move.
 
-Nobody outside your followers sees these, so the job is completely different: depth, not reach.
+Most people who watch a Story already follow you, so the job is completely different: depth, not reach.
+
+Stories are not private, though. On a public account anyone who opens the profile can watch them, and Uplika cannot limit a Story to Close Friends or any other list. If the person needs a smaller audience, they set it in the Instagram app before posting there themselves.
 
 Read the voice file `~/.uplika/<workspace-slug>/voice.md` first if it exists. If it does not, ask three questions (tone, how they end a line, words they avoid) and offer to save the answers with the `voice-profile` skill.
 
