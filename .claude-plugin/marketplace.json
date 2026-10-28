@@ -6,7 +6,7 @@
   },
   "metadata": {
     "description": "Uplika's agent plugin: the Uplika MCP server plus skills for publishing to the social channels you connect.",
-    "version": "0.1.15"
+    "version": "0.1.16"
   },
   "plugins": [
     {

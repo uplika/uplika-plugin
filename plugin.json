@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "uplika",
-  "version": "0.1.15",
+  "version": "0.1.16",
   "description": "Publish, schedule and manage posts on the social channels you connect to Uplika, with skills that know the order to call tools in.",
   "author": { "name": "Uplika", "email": "support@uplika.com", "url": "https://uplika.com" },
   "homepage": "https://uplika.com",
