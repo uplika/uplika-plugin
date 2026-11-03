@@ -1,6 +1,6 @@
 ---
 name: troubleshoot
-description: "When something did not work: read the error code, call get_help, then retry, refresh the account, wake the Naver extension or ask to reconnect."
+description: "When something did not work: read the error code, call get_help, then retry, reconnect or wake the Naver extension, or report it to the team."
 ---
 
 # Troubleshoot
@@ -12,6 +12,7 @@ Use this when a call fails, a post is stuck, an automation did not react, a DM d
 1. Read the error code from the response (`error.code`), or the target's reason from `get_post`.
 2. Call `get_help` with that `code` (or a short `query` in any language, and `platform` when it is one channel). Use `locale` for the person's language. Give them the answer's steps and its link.
 3. Act on it with the table below. Never repeat the same failing call more than once without changing something.
+4. If that does not solve it and the person wants the Uplika team to look, ask them first ("Should I send this to the Uplika team?"). Show what you will send: their own words (`personSaid`, in their language, not rewritten) and your account of what you tried (`summary`). On their OK call `report_problem` once, with the `code`, `requestId`, `tool`, `post` and `helpId` you have. Do not paste logs, tokens or keys; Uplika attaches its own request records. Tell them the reply goes to the email on their Uplika account, without promising when. A repeat of the same problem within a day is recorded but not emailed again, so do not send it twice. If it answers `support_daily_limit`, point them to Contact at the bottom right of the dashboard (`faq:report-to-team`).
 
 ## By code
 
@@ -41,6 +42,7 @@ A Naver category the person names but `list_accounts` does not show: `refresh_ac
 ## Tools
 
 - `get_help`: the answer, steps and link for a code or question
+- `report_problem`: send the problem to the Uplika team when `get_help` did not solve it and the person agreed
 - `get_post`: per-channel status and the reason a target failed
 - `retry_post`: retry failed targets after the cause is fixed
 - `publish_now`: send a scheduled or draft post now (a YouTube-only post answers 429 on a YouTube-limit day and keeps its schedule)
