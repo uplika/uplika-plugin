@@ -3,7 +3,7 @@
 Builds or refreshes `../../../references/voice-profile.md` so every writing skill in
 this bundle drafts in the user's real voice instead of a generic "human" voice.
 Runs on any agent (Claude Code, Codex, OpenClaw): the core path needs only the
-user's own writing pasted in. Apify is an optional accelerator, never required.
+user's own writing pasted in. Handlus or Apify is an optional accelerator, never required.
 
 ## When this runs
 
@@ -15,10 +15,14 @@ user's own writing pasted in. Apify is an optional accelerator, never required.
 
 1. **Pasted samples (portable default).** Ask for 3-6 of the user's own real
    LinkedIn posts or comments. This alone is enough; no token, no history needed.
-2. **Apify-assisted (optional).** If the Apify MCP connector is available and the user gives their
-   profile URL, pull recent activity through its recent-comments tool
-   (and any post URLs they share through its post tool) to gather more samples.
-   Treat as an accelerator on top of, not a replacement for, pasted samples.
+2. **Read from the browser (optional).** If Handlus is connected (see
+   `../../../references/handlus-read-layer.md`), open the user's own
+   `https://www.linkedin.com/in/me/recent-activity/comments/` and any post URLs
+   they share, and read their own words as samples, read only. Otherwise, if the
+   Apify MCP connector is available and the user gives their profile URL, pull
+   recent activity through its recent-comments tool (and any post URLs they share
+   through its post tool). Treat either as an accelerator on top of, not a
+   replacement for, pasted samples.
 3. **Manual.** The user can also just tell you their niche, rules, and links.
 
 ## Steps
@@ -35,7 +39,7 @@ user's own writing pasted in. Apify is an optional accelerator, never required.
 4. **Capture hard rules and CTA/link style** the samples reveal or the user states.
 5. **Write `../../../references/voice-profile.md`**: fill sections 1-5, copy the 2-4
    strongest lines verbatim into "Signature examples", and set the Status block to
-   `filled: yes`, `source: <pasted|apify|manual>`, `updated: <today's date>`.
+   `filled: yes`, `source: <pasted|handlus|apify|manual>`, `updated: <today's date>`.
 6. **Show the user the filled profile for approval** before saving, and tell them
    any writing skill will now match it automatically. They can edit the file anytime.
 

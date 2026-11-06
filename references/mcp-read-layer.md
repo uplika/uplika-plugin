@@ -145,7 +145,9 @@ than rounding up to one and billing a run.
 
 ## Precedence
 
-A skill that needs to read decides in this order:
+Handlus, when it is connected, comes before all of these: see
+`handlus-read-layer.md`. After it, a skill that needs to read decides in this
+order:
 
 1. **`APIFY_TOKEN` set** → call `lib.ApifyClient` as before. It caches (256
    entries, 6h), normalizes, and costs one process.

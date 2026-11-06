@@ -11,21 +11,21 @@ Audit the nine components of a LinkedIn profile (photo, banner, headline, About,
 
 ## When to use
 
-- User asks for an audit and pastes their profile text (a bare URL is not readable, see Input)
+- User asks for an audit of their own profile, read through Handlus or pasted (see Input)
 - User wants to rewrite their headline, About section, or Featured section
 - User is launching a content strategy and needs the profile to match
 - Any of: "review my profile", "fix my headline", "optimize bio", "profile audit", "LinkedIn optimization"
 
 ## Input
 
-**Paste the profile, do not just link it.** The read layer covers posts, comments and engagers; there is no profile actor, so a profile URL cannot be fetched, with an APIFY_TOKEN or without one. Open the profile, copy the sections, paste them in. Screenshots of the visual parts work too.
+**Read the user's own profile, or have it pasted.** If Handlus is connected (see `../../references/handlus-read-layer.md`), open `https://www.linkedin.com/in/me/` in the user's own signed-in Chrome and read the headline, About, Experience and the other sections it shows, read only. Only the user's own profile: opening someone else's shows up in their viewer list. The Apify read layer has no profile actor, so without Handlus the user opens the profile, copies the sections and pastes them in. Screenshots of the visual parts work too.
 
 - Profile text: headline, About, Experience entries, Skills, custom URL
 - The visual three (photo, banner, Featured): screenshots, or a sentence describing each
 - Goal: **clients** / **job seeking** / **authority**, Featured and CTA vary by goal
 - Optional: draft content to grade against the existing profile
 
-If the user supplies only a URL, ask for the text before scoring anything. Never score a section you have not been shown, and never infer profile content from the URL slug.
+If only a URL arrived and Handlus is not connected, ask for the text before scoring anything. Never score a section you have not read or been shown, and never infer profile content from the URL slug.
 
 ## Output
 
@@ -38,7 +38,7 @@ A structured audit + rewrite in this shape:
 
 ## Steps
 
-1. **Intake.** Collect profile state + goal. If only a URL arrived, ask for the pasted text first. Flag missing sections.
+1. **Intake.** Collect profile state + goal. If only a URL arrived, read it through Handlus (own profile only) or ask for the pasted text first. Flag missing sections.
 2. **Score each of 9 sections** against the checklist (see references/).
 3. **Rewrite headline** using `[What You Do] | [Who You Help] [Achieve What Result]`, fit all 220 chars.
 4. **Rebuild About** with 7-step structure; verify first **265-275 chars** hook before "see more".
@@ -98,4 +98,4 @@ Global voice rules: see `../../references/voice-rules.md`. Additional skill-spec
 
 ## Tools
 
-None. Uplika has no tool that reads or edits a LinkedIn profile; the user pastes the profile and makes each change in LinkedIn.
+None from Uplika. Uplika has no tool that reads or edits a LinkedIn profile; the profile is read through Handlus or pasted, and the user makes each change in LinkedIn.

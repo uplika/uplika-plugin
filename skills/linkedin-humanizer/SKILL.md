@@ -68,7 +68,7 @@ linkedin-humanizer --mode audit <text>
 
 # Profile: build/update the user's Voice & Brand Profile so every writing
 # skill drafts in their real voice. Learns from 3-6 pasted posts (portable, no
-# token) or, through the Apify MCP connector, from pulled activity. Writes
+# token) or, through Handlus or the Apify MCP connector, from pulled activity. Writes
 # ../../references/voice-profile.md. See sub-skills/voice-profile.md.
 linkedin-humanizer --mode profile
 ```
