@@ -26,8 +26,8 @@ Read `list_platforms` and its features table. Uplika does not read WordPress com
 
 ## Pitfalls
 
-- Connecting takes the site address, the WordPress username and an application password made under Users, Profile in WordPress. The login password does not work.
-- WordPress.com sites cannot connect yet (`wordpress_com_site`). Self-hosted WordPress can.
+- A self-hosted site connects with the site address, the WordPress username and an application password made under Users, Profile in WordPress. The login password does not work.
+- A WordPress.com site connects another way: on the Connections page the person picks WordPress, then WordPress.com, approves Uplika on WordPress.com and picks one site. Typing a wordpress.com address in the self-hosted form answers `wordpress_com_site`.
 - The WordPress user needs the Author role or higher (`wordpress_role_insufficient`).
 - `update_post` rewrites only the title and body, in place. Tags, the featured image and the post's status stay as they are, so those options are ignored on an edit. WordPress has no edit lock: changes someone made in the WordPress editor since are overwritten, so check first when the person may have edited it there.
 - `delete_post` moves the post to the WordPress trash, where an admin can restore it until the site empties the trash. A site with the trash turned off deletes it for good, and the response's `note` says so. Tell the person.

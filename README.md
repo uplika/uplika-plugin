@@ -1,6 +1,6 @@
 # Uplika agent plugin
 
-Publish, schedule and manage posts on the social channels you connect to [Uplika](https://uplika.com), right from your AI agent. The plugin bundles the Uplika MCP server (`https://api.uplika.com/mcp`, OAuth, nothing to paste) with skills that know the order to call the tools in: check what is connected, read each channel's limits, fit the media, show you the post, publish only after you approve, and report the links. It also covers comments, direct-message automations, weekly performance reviews, Naver Blog keyword research and YouTube scripting.
+Publish, schedule and manage posts on the social channels you connect to [Uplika](https://uplika.com), right from your AI agent. The plugin bundles the Uplika MCP server (`https://api.uplika.com/mcp`, OAuth, nothing to paste) with skills that know the order to call the tools in: check what is connected, read each channel's limits, fit the media, show you the post, publish only after you approve, and report the links. It also covers comments, direct-message automations, weekly performance reviews, Naver Blog keyword research, YouTube scripting, and the LinkedIn skill set from sergebulaev/linkedin-skills (posts, hooks, comments, replies, profile, planning).
 
 ## Install
 
@@ -25,7 +25,8 @@ If you added Uplika earlier with `claude mcp add` or `codex mcp add uplika`, you
 - **Nothing goes out without your approval.** The skills show you the text, the channels and the time, and publish, reply, send or turn on an automation only after you say yes.
 - **Local scripts.** A few YouTube and Instagram skills include small Python scripts (standard library only) that score hooks, titles and captions or read a transcript or analytics CSV you provide. They make no network calls.
 - **Public YouTube data.** When a shell is available, some YouTube skills suggest `yt-dlp` or downloading thumbnail images to read public video data from YouTube. Your data is not sent there.
-- **On your own disk.** The voice skill keeps your writing style in `~/.uplika/<workspace-slug>/voice.md`.
+- **LinkedIn reads.** Uplika cannot read LinkedIn posts or comments. A few LinkedIn skills read them through the Apify MCP connector if you have added it to your agent (runs are billed to your Apify account), or ask you to paste the text. Comments, replies and reposts they draft are posted by you in the LinkedIn app.
+- **On your own disk.** The voice skill keeps your writing style in `~/.uplika/<workspace-slug>/voice.md`. The LinkedIn skills keep their voice profile and story bank in the plugin's `references/` folder, which a plugin update replaces, so keep a copy elsewhere.
 
 ## Skills only
 
