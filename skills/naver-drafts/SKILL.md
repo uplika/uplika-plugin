@@ -54,7 +54,7 @@ A post Uplika saved with `options.naver_blog.draftOnly` has a Naver target whose
 - `naver_rate_limited`: Naver capped how much this ID publishes. Do not call again before `retryAfterSeconds`; the draft is already in Naver.
 - `naver_keep_unknown`: a `@keep` id that is not in the post's current source. Use the ids from the source.
 - `naver_media_over_limit`: the body places more photos or videos than Naver takes (the limit is in `list_platforms`). Nothing changed; `droppedIds` says what to take out.
-- `post_not_editable`: Uplika could not turn this post into a source it can rewrite without losing parts of it. The person edits it in Naver's editor.
+- `post_not_editable`: Uplika cannot rewrite this post. The message says why and what to do: relay it. When Naver would not open the post for editing, the person changes it on Naver Blog directly.
 - `account_disconnected`: hand over to the `troubleshoot` skill.
 - Anything else: call `get_help` with the error code and pass its answer and link on.
 

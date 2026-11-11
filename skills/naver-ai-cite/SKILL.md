@@ -89,7 +89,7 @@ Principle 5 (최신성 유지) asks that posts be updated when their information
 - `naver_keep_unknown`: a `@keep` id that is not in the post's current source. Use the ids from the source.
 - `naver_rate_limited`: do not call again before `retryAfterSeconds`.
 - `extension_outdated`: the extension in that Chrome is too old for source edits or for reading Naver search; relay the message with `faq:extension-not-updating`. When the message says the needed version is not on the Chrome Web Store yet, do not ask the person to update.
-- `post_not_editable`: Uplika could not turn this post into a source it can rewrite without losing parts of it. The person edits it in Naver's editor.
+- `post_not_editable`: Uplika cannot rewrite this post. The message says why and what to do: relay it. When Naver would not open the post for editing, the person changes it on Naver Blog directly.
 - `workspace_required`: show the workspaces it lists, ask which one, and pass `workspaceId`.
 - `account_disconnected`: hand over to the `troubleshoot` skill.
 - Anything else: call `get_help` with the error code and pass its answer and link on.

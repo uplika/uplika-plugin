@@ -20,8 +20,8 @@ All of it runs in the Uplika extension in the person's Chrome. Call `bridge_stat
 
 Never state, estimate or promise how many comments, likes or follows are safe per day or per hour, and never invent a pace. Naver closed its writing API over mechanical mass activity, and when Naver restricts an account it is the person's blog that gets suspended, not Uplika. Uplika's server and Naver decide the limits:
 
-- The neighbor comment automation applies its own skip rules on the server (one comment per post, a gap between comments, nothing older than 48 hours). Uplika sets no daily count of its own since 2026-10-14; its description in `list_automation_templates` says what it skips; repeat that, not numbers of your own.
-- If a call answers `naver_rate_limited`, `naver_engagement_limited` or `rate_limited`, stop. Do not call again before `retryAfterSeconds`, and do not work around it through another account or workspace. `naver_engagement_limited` means Naver itself stopped showing the add-neighbor page for that blog today (the page came back blank more than once); the answer carries `until`, and nothing goes out from that blog before midnight Korea time. Tell the person it is Naver's limit, not Uplika's, and pass on the `help` link.
+- The neighbor comment automation applies its own skip rules on the server (one comment per post, a gap between comments, nothing older than 48 hours, and, if the person sets one, a gap per blog (`ownerGapHours`) and blogs to leave out (`excludeBlogs`)). Uplika sets no daily count of its own since 2026-10-14; its description in `list_automation_templates` says what it skips; repeat that, not numbers of your own.
+- If a call answers `naver_rate_limited`, `naver_engagement_limited` or `rate_limited`, stop. Do not call again before `retryAfterSeconds`, and do not work around it through another account or workspace. `naver_engagement_limited` means Naver itself stopped showing the add-neighbor page for that blog today (the page came back blank more than once, or once with Naver's own notice that the blog reached the number of neighbors it can add in a day); the answer carries `until`, and nothing goes out from that blog before midnight Korea time. Tell the person it is Naver's limit, not Uplika's, and pass on the `help` link.
 - Like only the posts the person names.
 - Follow only the blogs the person picked: a blog they named, or one they chose from a candidate list you showed them (`find_naver_neighbor_candidates`). Send one follow at a time and wait for its answer. When an answer is a stop code, stop the whole list there. Never send a refused blog again, and never resend it with `mutual: false` unless the person asks for that blog.
 
@@ -34,15 +34,21 @@ Never state, estimate or promise how many comments, likes or follows are safe pe
 3. Ask the person:
    - Whose posts: mutual neighbors only (`mutual`, the default) or every neighbor in the feed (`all`).
    - The instruction: what the blog is about and how the comments should sound (예: 「여행 블로그예요. 글에서 구체적인 장면 하나를 짚어 짧게 공감하는 댓글, 홍보 문구는 넣지 않기」).
+   - How long to wait before commenting on the same blog again, in hours, or no gap. Spacing rules belong in that setting; the instruction cannot enforce them.
+   - Any blogs to leave out? Ask for their blog addresses or links, not nicknames. Uplika saves each as the blog's id; a nickname is refused.
    - A name for the automation.
-4. Call `create_automation` with `accountId`, `templateId` `neighbor_post_comment` and `params` (`neighbors`, `instruction`, `name`). It is saved as a draft; nothing is posted yet.
+4. Call `create_automation` with `accountId`, `templateId` `neighbor_post_comment` and `params` (`neighbors`, `instruction`, `ownerGapHours` if the person gave one, `excludeBlogs` if the person named blogs to leave out, `name`). It is saved as a draft; nothing is posted yet.
 5. Before turning it on, tell the person plainly:
    - Once it is live, each comment goes out on the neighbor's post without passing by them first.
    - It reacts only to posts published after it is turned on, and it skips posts and holds back comments by the rules in the template's description.
    - It runs only while Chrome with the Uplika extension is open on their computer.
 
-   Show the instruction and the neighbor setting, and turn it on with `enable_automation` only after they approve.
-6. Afterwards, `list_automation_runs` shows what it commented on and what it skipped. When the person wants it stopped, call `disable_automation`.
+   Leaving a blog out belongs in `excludeBlogs`; an instruction that names a blogger is not enforced.
+
+   Show the instruction, the neighbor setting, the gap per blog and the blogs left out, and turn it on with `enable_automation` only after they approve.
+
+   To add or remove a blog later, call `update_automation` with the whole list in `excludeBlogs`; null clears it.
+6. Afterwards, `list_automation_runs` shows what it commented on and what it skipped. Say the skips in plain words: `neighbor_excluded` means the post's blog is on the list the person asked to leave out, so Uplika did not read it, `neighbor_owner_gap` means the gap the person set for that blog had not passed yet, `neighbor_off_topic` means the AI found the post outside what the instruction covers, `neighbor_ai_declined` means the AI would not comment on that post for another reason, and `neighbor_ai_failed` means the AI could not be reached or the daily AI limit was used. When the person wants it stopped, call `disable_automation`.
 
 ## Like (공감)
 
@@ -70,13 +76,13 @@ Never add blogs the person did not pick, never send a refused blog again, never 
 
 1. Take the blog from the person: its id or any link to it.
 2. Ask which kind: a neighbor (이웃), added right away, or a mutual neighbor (서로이웃), a request the other blog has to accept, optionally with a message Naver shows them.
-3. Confirm, then call `follow` with `blog`, `mutual` and `message`. Uplika has no unfollow.
+3. Confirm, then call `follow` with `blog`, `mutual` and `message`. Add `group` only when the person names one of their neighbor groups on Naver, spelled as it appears there; without it Naver uses its default group. Uplika creates no groups and has no unfollow. An older extension answers `extension_outdated` to a follow with `group`.
 4. Read the answer as one of five:
    - Sent: `pending` (the mutual request waits for them; `requestSent: false` means a request was already waiting and nothing new went out) or `following` (added as a neighbor).
    - Already: `already`, already a neighbor, nothing sent.
-   - Refused: `naver_follow_blocked`, that blog does not take this request. Do not send it again. If the message ends in `[matched=group_full]`, it is this account's neighbor group that is full, not that blog: stop.
+   - Refused: `naver_follow_blocked`, that blog does not take this request. Do not send it again. If the message ends in `[matched=group_full]`, it is this account's neighbor group that is full, not that blog: stop, and relay `faq:naver-follow-blocked` (make room in that group, or name another group with `group`).
    - Unknown: `naver_tab_lost`, nothing is known to have changed; sending it once more is safe.
-   - Stop: `naver_engagement_limited`, `naver_not_logged_in`, `naver_wrong_login`, `bridge_offline`, `extension_outdated`. Stop the whole list there and tell the person.
+   - Stop: `naver_engagement_limited`, `naver_not_logged_in`, `naver_wrong_login`, `bridge_offline`, `extension_outdated`, `naver_follow_group_missing` (the group name is not on this blog; nothing was clicked). Stop the whole list there and tell the person.
 
 ## When something fails
 
@@ -92,6 +98,7 @@ Never add blogs the person did not pick, never send a refused blog again, never 
 - `list_automation_templates`: the template's params and what it skips
 - `create_automation`: save the neighbor comment automation as a draft
 - `enable_automation`: turn it on (after approval)
+- `update_automation`: change its settings later, such as the blogs to leave out
 - `list_automation_runs`: what it commented on and what it skipped
 - `disable_automation`: turn it off
 - `list_replies`: comment ids on the person's own post

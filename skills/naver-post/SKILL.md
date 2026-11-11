@@ -25,7 +25,7 @@ Use it for any Naver Blog post. For a post meant to be cited in Naver's AI Brief
 7. **Clean the draft.** The brief's output format has parts that do not belong in the body as they are:
    - The `#` title line: move it to `options.naver_blog.title`. The title is not part of the body.
    - Notes after subheadings such as `(서브: 키워드)`: delete them.
-   - The tag line at the end: move the tags to `options.naver_blog.tags` (no `#`, no spaces).
+   - The tag line at the end: move the tags to `options.naver_blog.tags` (no `#`, no spaces, letters, digits and _ only).
    - Each photo spot `[사진: 무엇을 찍은 사진인지]` and the caption line under it: handled in the next step.
 8. **Photos.** Never publish a `[사진: …]` line. For each spot, get the person's real photo, or remove the spot and its caption line. Do not invent photos they did not take. Show the person the list of spots so they know what to shoot or capture.
    - With a terminal (Claude Code, Codex, OpenClaw, Hermes): `media_presign` with the file name, type and size, PUT the bytes to the returned `uploadUrl` with curl, then `media_complete`.
