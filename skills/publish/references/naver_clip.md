@@ -11,6 +11,7 @@ Naver Clip posts are written by the Uplika extension in the person's own browser
 - `options.naver_clip.adDisclosure`: ad and sponsorship label. A legal statement; ask the person.
 - `options.naver_clip.disableComments`: turn comments off for this clip.
 - `options.naver_clip.draftOnly`: upload and keep it as a draft in Naver Clip Creators instead of posting.
+- `options.naver_clip.contentLink`: link the clip to one post on the blog of the same Naver account, by that post's address (`https://blog.naver.com/<blogId>/<postNo>`). Other sites, other blogs and the blog's home page answer `naver_clip_link_invalid` with `reason`. If the extension cannot find that post in Naver Clip's blog list, the clip is not posted (`clip_rejected`); check the address with the person or send it without the link.
 
 ## Always ask
 
@@ -18,9 +19,9 @@ Naver Clip posts are written by the Uplika extension in the person's own browser
 
 ## Not available
 
-Read `list_platforms` and its features table. uplika posts clips, reads one back (`get_post`), lists them (`list_channel_posts`), deletes them (`delete_post`) and reads views and likes (`get_insights`). Editing a clip and comments are done in Naver Clip Creators.
+Read `list_platforms` and its features table. uplika posts clips, reads one back (`get_post`), lists them (`list_channel_posts`), deletes them (`delete_post`) and reads views and likes (`get_insights`). A posted clip is edited in place with `update_post` (same video id): the description is rewritten and the tags carry over, and category, visibility and the comment setting change only when you send them. The video, `draftOnly`, the cover and the content link cannot change (`naver_clip_field_not_editable`). Editing a clip still in drafts and comments are done in Naver Clip Creators.
 
-- Reading, listing, deleting and metrics need a newer browser extension than posting. With an older one they answer `extension_outdated`; tell the person to update the extension in that browser.
+- Reading, listing, deleting, editing and metrics need a newer browser extension than posting. With an older one they answer `extension_outdated`; tell the person to update the extension in that browser.
 - A clip is looked up among the profile's most recent clips. An older clip answers 409 and nothing is changed; send the person to Naver Clip Creators.
 - Deleting a clip that was already deleted in Naver Clip Creators clears uplika's record.
 

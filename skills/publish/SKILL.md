@@ -15,7 +15,7 @@ One post, one or more channels, now or at a set time. For YouTube uploads use `y
 4. **Text.** If a voice file exists at `~/.uplika/<workspace-slug>/voice.md`, read it first; if not, write plainly and offer the `voice-profile` skill afterwards. A channel can get its own text with `options.<channel>.content`. A long post on a channel that supports chains goes in `threadItems` (first item is the root).
 5. **Media.**
    - With a terminal (Claude Code, Codex, OpenClaw, Hermes) and a local file: `media_presign` with the file name, type and size, PUT the bytes to the returned `uploadUrl` with curl, then `media_complete`.
-   - Without a terminal (claude.ai, ChatGPT): a public https file goes through `media_from_url`; a file on the person's device goes through `media_upload_link` (give them the link, then poll `media_upload_status` until it is ready).
+   - Without a terminal (claude.ai, ChatGPT): a public https file goes through `media_from_url`; a file on the person's device goes through `media_upload_link` (give them the link, then poll `media_upload_status` until it is ready). In ChatGPT, files in the conversation go through `media_from_file`: attached files come through as they are, and images ChatGPT made or files made by code come through by their /mnt/data path. A file id alone is refused.
    - Write `altText` when you can see the image. Pass `aiGenerated` when the media was made with AI.
 6. **Show and confirm.** Before anything goes out, show the person the exact text per channel, the media, the channels and handles, and the time (now, or `scheduledAt` with its time zone). Publish only after they approve. A post they want to finish themselves can be saved with `draft: true`.
 7. **Publish.** Call `publish` with `accountIds`, `content`, `mediaIds`, `options`, and `wait: true` so the response tells you whether it is really out. For a later time pass `scheduledAt` (ISO 8601 with offset). TikTok needs `get_publish_options` first (see `references/tiktok.md`).
@@ -39,6 +39,7 @@ One post, one or more channels, now or at a set time. For YouTube uploads use `y
 - `media_from_url`: attach a public https image or video
 - `media_upload_link`: let the person upload from their device
 - `media_upload_status`: wait for that upload to be ready
+- `media_from_file`: hand over a file from the ChatGPT conversation
 - `publish`: send or schedule (needs approval first)
 - `get_post`: status, reasons and permalinks per channel
 - `list_posts`: check what went out or is scheduled
