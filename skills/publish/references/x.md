@@ -14,7 +14,7 @@ Read `list_platforms` first. While X's status there is not `live`, X cannot be c
 
 ## Credits
 
-- X charges per API call, so posting to X through Uplika is paid from X credits the person buys in advance (prepaid). Uplika passes X's rate on with no markup. Each post, reply, attached file (photo, GIF or video), alt text on each image, delete and metrics read on X is charged; reading the current prices is free in `list_platforms`.
+- X charges per API call, so posting to X through Uplika is paid from X credits the person buys in advance (prepaid). Each call is charged at Uplika's price for it. Each post, reply, attached file (photo, GIF or video), alt text on each image, delete and metrics read on X is charged; reading the current prices is free in `list_platforms`.
 - Each piece of a chain (`threadItems`) after the first goes out as a reply and is charged the reply price, with or without a link.
 - A single post, or the first piece of a chain, costs more when its text has a link that starts with `http://` or `https://`, because X prices link posts higher. A bare domain such as `uplika.com` is charged as a plain post. Read both prices from `list_platforms` before you add a link the person did not ask for.
 - When the balance is too low, the call answers 402 `x_credits_insufficient` with `topUpUrl` and nothing reaches X. Give the person that `topUpUrl` and stop. Do not retry. After they top up, send the post again. See `faq:x-credits-ran-out`.

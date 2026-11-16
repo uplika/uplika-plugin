@@ -11,7 +11,7 @@ Naver Clip posts are written by the Uplika extension in the person's own browser
 - `options.naver_clip.adDisclosure`: ad and sponsorship label. A legal statement; ask the person.
 - `options.naver_clip.disableComments`: turn comments off for this clip.
 - `options.naver_clip.draftOnly`: upload and keep it as a draft in Naver Clip Creators instead of posting.
-- `options.naver_clip.contentLink`: link the clip to one post on the blog of the same Naver account, by that post's address (`https://blog.naver.com/<blogId>/<postNo>`). Other sites, other blogs and the blog's home page answer `naver_clip_link_invalid` with `reason`. If the extension cannot find that post in Naver Clip's blog list, the clip is not posted (`clip_rejected`); check the address with the person or send it without the link.
+- `options.naver_clip.contentLink`: link the clip to one post on the blog of the same Naver account, by that post's address (`https://blog.naver.com/<blogId>/<postNo>`). Other sites, other blogs and the blog's home page answer `naver_clip_link_invalid` with `reason`. If the extension cannot find that post in Naver Clip's blog list or its blog search, the clip is not posted (`clip_rejected`) and nothing is uploaded. A post published in the last few minutes can take a few minutes to show up in that search: send it again a few minutes later with the same contentLink. If the post is not in the list (deleted, or on another blog), check the address with the person. Ask the person before sending it without the link.
 
 ## Always ask
 
