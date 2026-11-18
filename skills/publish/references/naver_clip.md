@@ -12,16 +12,18 @@ Naver Clip posts are written by the Uplika extension in the person's own browser
 - `options.naver_clip.disableComments`: turn comments off for this clip.
 - `options.naver_clip.draftOnly`: upload and keep it as a draft in Naver Clip Creators instead of posting.
 - `options.naver_clip.contentLink`: link the clip to one post on the blog of the same Naver account, by that post's address (`https://blog.naver.com/<blogId>/<postNo>`). Other sites, other blogs and the blog's home page answer `naver_clip_link_invalid` with `reason`. If the extension cannot find that post in Naver Clip's blog list or its blog search, the clip is not posted (`clip_rejected`) and nothing is uploaded. A post published in the last few minutes can take a few minutes to show up in that search: send it again a few minutes later with the same contentLink. If the post is not in the list (deleted, or on another blog), check the address with the person. Ask the person before sending it without the link.
+- `options.naver_clip.place`: tag a place on the clip, by its name exactly as Naver Map writes it. `options.naver_clip.placeAddress` (words from its address: district, neighborhood or street) narrows it when several places share that name. The tag is attached only when exactly one search result matches; otherwise the clip is not posted (`clip_rejected`), nothing is uploaded, and the message lists the candidates it found: ask the person which one and send it again with that name or a placeAddress. A malformed value answers `naver_clip_place_invalid` with `reason`. If the clip went up but the tag did not attach, the result carries a warning saying what to do in Naver Clip Creators. Places in Korea only. Whether the clip shows on the place's own Naver page is up to Naver; do not promise it.
 
 ## Always ask
 
 - Whether it is an ad or sponsored, and which category it belongs to.
+- Which place to tag, if any, and whether its name is written the way Naver Map writes it.
 
 ## Not available
 
-Read `list_platforms` and its features table. uplika posts clips, reads one back (`get_post`), lists them (`list_channel_posts`), deletes them (`delete_post`) and reads views and likes (`get_insights`). A posted clip is edited in place with `update_post` (same video id): the description is rewritten and the tags carry over, and category, visibility and the comment setting change only when you send them. The video, `draftOnly`, the cover and the content link cannot change (`naver_clip_field_not_editable`). Editing a clip still in drafts and comments are done in Naver Clip Creators.
+Read `list_platforms` and its features table. uplika posts clips, reads one back (`get_post`), lists them (`list_channel_posts`), deletes them (`delete_post`) and reads views and likes (`get_insights`). A posted clip is edited in place with `update_post` (same video id): the description is rewritten and the tags carry over, and category, visibility and the comment setting change only when you send them. The video, `draftOnly`, the cover and the content link cannot change (`naver_clip_field_not_editable`). The place changes only when you send a different one, and it cannot be taken off. Editing a clip still in drafts and comments are done in Naver Clip Creators.
 
-- Reading, listing, deleting, editing and metrics need a newer browser extension than posting. With an older one they answer `extension_outdated`; tell the person to update the extension in that browser.
+- Reading, listing, deleting, editing, metrics and a place tag need a newer browser extension than posting. With an older one they answer `extension_outdated`; tell the person to update the extension in that browser.
 - A clip is looked up among the profile's most recent clips. An older clip answers 409 and nothing is changed; send the person to Naver Clip Creators.
 - Deleting a clip that was already deleted in Naver Clip Creators clears uplika's record.
 
