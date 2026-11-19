@@ -1,11 +1,11 @@
 ---
 name: naver-engage
-description: Comment on neighbors' new posts, find neighbor candidates, like and follow on Naver Blog without guessing limits. 이웃 댓글, 서로이웃 후보, 공감.
+description: Read and comment on neighbors' new posts, find neighbor candidates, like and follow on Naver Blog without guessing limits. 이웃 새 글, 서로이웃 후보, 공감.
 ---
 
 # Naver engage
 
-Engage with other Naver blogs from the person's connected blog: an automation that comments on neighbors' new posts (이웃 새 글 댓글), and one-off likes (공감) and follows (이웃추가). Everything here shows up on someone else's blog under the person's name, so every action is confirmed with them first.
+Engage with other Naver blogs from the person's connected blog: an automation that comments on neighbors' new posts (이웃 새 글 댓글), a list of neighbors' new posts to like or comment on by hand (이웃 새 글), and one-off likes (공감) and follows (이웃추가). Everything here shows up on someone else's blog under the person's name, so every action is confirmed with them first.
 
 All of it runs in the Uplika extension in the person's Chrome. Call `bridge_status` before a like, a follow or turning the automation on. If `state` is not `online`, relay `userMessage` word for word and wait until the person says Chrome is open.
 
@@ -22,7 +22,7 @@ Never state, estimate or promise how many comments, likes or follows are safe pe
 
 - The neighbor comment automation applies its own skip rules on the server (one comment per post, a gap between comments, nothing older than 48 hours, and, if the person sets one, a gap per blog (`ownerGapHours`) and blogs to leave out (`excludeBlogs`)). Uplika sets no daily count of its own since 2026-10-14; its description in `list_automation_templates` says what it skips; repeat that, not numbers of your own.
 - If a call answers `naver_rate_limited`, `naver_engagement_limited` or `rate_limited`, stop. Do not call again before `retryAfterSeconds`, and do not work around it through another account or workspace. `naver_engagement_limited` means Naver itself stopped showing the add-neighbor page for that blog today (the page came back blank more than once, or once with Naver's own notice that the blog reached the number of neighbors it can add in a day); the answer carries `until`, and nothing goes out from that blog before midnight Korea time. Tell the person it is Naver's limit, not Uplika's, and pass on the `help` link.
-- Like only the posts the person names.
+- Like or comment only on posts the person picked: a post they named, or one they chose from the list of neighbors' new posts you showed them (`list_naver_neighbor_posts`). One at a time: send one `like` or `reply`, read its answer, then go on to the next.
 - Follow only the blogs the person picked: a blog they named, or one they chose from a candidate list you showed them (`find_naver_neighbor_candidates`). Send one follow at a time and wait for its answer. When an answer is a stop code, stop the whole list there. Never send a refused blog again, and never resend it with `mutual: false` unless the person asks for that blog.
 
 ## Comment on neighbors' new posts (automation)
@@ -49,6 +49,22 @@ Never state, estimate or promise how many comments, likes or follows are safe pe
 
    To add or remove a blog later, call `update_automation` with the whole list in `excludeBlogs`; null clears it.
 6. Afterwards, `list_automation_runs` shows what it commented on and what it skipped. Say the skips in plain words: `neighbor_excluded` means the post's blog is on the list the person asked to leave out, so Uplika did not read it, `neighbor_owner_gap` means the gap the person set for that blog had not passed yet, `neighbor_off_topic` means the AI found the post outside what the instruction covers, `neighbor_ai_declined` means the AI would not comment on that post for another reason, and `neighbor_ai_failed` means the AI could not be reached or the daily AI limit was used. When the person wants it stopped, call `disable_automation`.
+
+## Neighbors' new posts (이웃 새 글)
+
+When the person wants to like or comment on what their neighbors posted lately, show them the list and let them pick. This is done by hand, one at a time; Uplika has no bulk like or bulk comment.
+
+1. Call `list_accounts` for the connected Naver Blog, and `bridge_status`. The list is read through the extension, so it has to be online; if not, relay `userMessage` and wait.
+2. Call `list_naver_neighbor_posts`. `neighbors` is `mutual` by default (posts by mutual neighbors) or `all` (every neighbor).
+3. Show each post's `name`, `title`, `at` and what Uplika already did on it (`uplika.liked`, `uplika.commented`). Those two cover only what Uplika did through this connection; a like or comment made directly on Naver is not known.
+4. Say what the answer says about itself, as it is:
+   - `complete: false`: the account has many neighbors and the list may be missing older posts from the last two days (`hours` in the answer).
+   - `mutual: null`: Uplika could not tell whether that blog is a mutual neighbor (`relationKnown: false`, with the reason in `relationNote`). Say it may not be a mutual neighbor.
+5. Let the person pick the posts and say what to do on each: like, comment, or both. For a comment, confirm the text with them.
+6. One post at a time: call `like` or `reply` with the post's `url` as `id`, read the answer, then go on to the next. `already: true` on a like means it was liked before; nothing changed. If an answer is `naver_rate_limited`, `naver_engagement_limited`, `naver_not_logged_in`, `naver_wrong_login`, `bridge_offline` or `extension_outdated`, stop the whole list there and tell the person.
+7. Do not comment on a post whose `uplika.commented` is true unless the person asks for that post again.
+
+If the person wants a comment on every new post without picking each time, that is the automation above; it applies its own skip rules on the server.
 
 ## Like (공감)
 
@@ -102,7 +118,9 @@ Never add blogs the person did not pick, never send a refused blog again, never 
 - `list_automation_runs`: what it commented on and what it skipped
 - `disable_automation`: turn it off
 - `list_replies`: comment ids on the person's own post
+- `list_naver_neighbor_posts`: neighbors' new posts from the last two days, with what Uplika already did on each
 - `like`: like a post or comment as the connected blog (after approval)
+- `reply`: comment on a post the person picked, by its link (after approval)
 - `find_naver_neighbor_candidates`: blogs that recently posted on a topic, with already connected ones left out
 - `follow`: add a blog as a neighbor (after approval)
 - `get_help`: the answer for an error code
