@@ -6,7 +6,7 @@
 - `options.instagram.coverMediaId`: a reel's cover image (media id). Reels only.
 - `options.instagram.thumbOffsetMs`: a reel's cover frame instead of an image.
 - `options.instagram.shareToFeed`: reels only; false keeps the reel out of the main feed.
-- `options.instagram.collaborators`: public professional accounts invited as collaborators. They appear only after accepting. Not on stories.
+- `options.instagram.collaborators`: usernames of accounts invited as collaborators. They appear only after accepting. Not on stories.
 - `options.instagram.userTags`: tag accounts on the media.
 - `options.instagram.firstComment`: a comment posted right after publishing, often for hashtags. Not on stories.
 - `options.instagram.isAiGenerated`: the AI label. Media uploaded with `aiGenerated` turns it on by itself.

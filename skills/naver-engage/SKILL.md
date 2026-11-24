@@ -58,7 +58,7 @@ When the person wants to like or comment on what their neighbors posted lately, 
 2. Call `list_naver_neighbor_posts`. `neighbors` is `mutual` by default (posts by mutual neighbors) or `all` (every neighbor).
 3. Show each post's `name`, `title`, `at` and what Uplika already did on it (`uplika.liked`, `uplika.commented`). Those two cover only what Uplika did through this connection; a like or comment made directly on Naver is not known.
 4. Say what the answer says about itself, as it is:
-   - `complete: false`: the account has many neighbors and the list may be missing older posts from the last two days (`hours` in the answer).
+   - `coveredSince`: the list covers neighbors' posts from that time until now. Say it in the person's local time. When `complete` is `false`, older posts were not read; calling again later brings newer posts, not older ones. When `coveredSince` is `null`, how far back the list goes is not known.
    - `mutual: null`: Uplika could not tell whether that blog is a mutual neighbor (`relationKnown: false`, with the reason in `relationNote`). Say it may not be a mutual neighbor.
 5. Let the person pick the posts and say what to do on each: like, comment, or both. For a comment, confirm the text with them.
 6. One post at a time: call `like` or `reply` with the post's `url` as `id`, read the answer, then go on to the next. `already: true` on a like means it was liked before; nothing changed. If an answer is `naver_rate_limited`, `naver_engagement_limited`, `naver_not_logged_in`, `naver_wrong_login`, `bridge_offline` or `extension_outdated`, stop the whole list there and tell the person.
@@ -91,8 +91,8 @@ Never add blogs the person did not pick, never send a refused blog again, never 
 ## Follow (이웃추가)
 
 1. Take the blog from the person: its id or any link to it.
-2. Ask which kind: a neighbor (이웃), added right away, or a mutual neighbor (서로이웃), a request the other blog has to accept, optionally with a message Naver shows them.
-3. Confirm, then call `follow` with `blog`, `mutual` and `message`. Add `group` only when the person names one of their neighbor groups on Naver, spelled as it appears there; without it Naver uses its default group. Uplika creates no groups and has no unfollow. An older extension answers `extension_outdated` to a follow with `group`.
+2. Ask which kind: a neighbor (이웃), added right away, or a mutual neighbor (서로이웃), a request the other blog has to accept. A mutual request needs a message Naver shows the other blog, up to 400 characters: ask the person what to write. Naver does not send a mutual request without one, so Uplika answers `invalid_params` and sends nothing.
+3. Confirm, then call `follow` with `blog` and `mutual`, and with the person's `message` for a mutual request. Add `group` only when the person names one of their neighbor groups on Naver, spelled as it appears there; without it Naver uses its default group. Uplika creates no groups and has no unfollow. An older extension answers `extension_outdated` to a follow with `group`.
 4. Read the answer as one of five:
    - Sent: `pending` (the mutual request waits for them; `requestSent: false` means a request was already waiting and nothing new went out) or `following` (added as a neighbor).
    - Already: `already`, already a neighbor, nothing sent.
@@ -118,7 +118,7 @@ Never add blogs the person did not pick, never send a refused blog again, never 
 - `list_automation_runs`: what it commented on and what it skipped
 - `disable_automation`: turn it off
 - `list_replies`: comment ids on the person's own post
-- `list_naver_neighbor_posts`: neighbors' new posts from the last two days, with what Uplika already did on each
+- `list_naver_neighbor_posts`: neighbors' newest posts, going back at most two days, with what Uplika already did on each
 - `like`: like a post or comment as the connected blog (after approval)
 - `reply`: comment on a post the person picked, by its link (after approval)
 - `find_naver_neighbor_candidates`: blogs that recently posted on a topic, with already connected ones left out
